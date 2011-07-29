@@ -1,0 +1,94 @@
+simple-test.txt
+-----------------
+Naive Bayes
+
+MLE:
+Class 0: tested 2, correctly classified 2
+Class 1: tested 2, correctly classified 2
+Overall: tested 4, correctly classified 4
+Accuracy = 1.0
+
+Laplace:
+Class 0: tested 2, correctly classified 2
+Class 1: tested 2, correctly classified 2
+Overall: tested 4, correctly classified 4
+Accuracy = 1.0
+
+Logistic Regression
+
+Class 0: tested 2, correctly classified 2
+Class 1: tested 2, correctly classified 2
+Overall: tested 4, correctly classified 4
+Accuracy = 1.0
+
+
+vote-test.txt
+-----------------
+Naive Bayes
+
+MLE:
+Class 0: tested 52, correctly classified 48
+Class 1: tested 83, correctly classified 76
+Overall: tested 135, correctly classified 124
+Accuracy = 0.9185185185185185
+
+Laplace:
+Class 0: tested 52, correctly classified 48
+Class 1: tested 83, correctly classified 76
+Overall: tested 135, correctly classified 124
+Accuracy = 0.9185185185185185
+
+Logistic Regression
+
+Class 0: tested 52, correctly classified 51
+Class 1: tested 83, correctly classified 83
+Overall: tested 135, correctly classified 134
+Accuracy = 0.9925925925925926
+
+b) For the vote data, logistic regression classified the test set almost perfectly, achieving 99% accuracy, which was about 7% better than the
+naive bayes model.  This discrepancy most likely occurred because a particular member of Congress's voting record probably is highly dependent
+on the other votes he or she has made.  Naive bayes does not do as well when the data points are not conditionally independent of each other.
+For logistic regression this dependency doesn't matter as much since we don't make such an assumption.
+
+
+heart-test.txt
+------------------
+Naive Bayes
+
+MLE:
+Class 0: tested 15, correctly classified 10
+Class 1: tested 172, correctly classified 135
+Overall: tested 187, correctly classified 145
+Accuracy = 0.7754010695187166
+
+Laplace:
+Class 0: tested 15, correctly classified 10
+Class 1: tested 172, correctly classified 130
+Overall: tested 187, correctly classified 140
+Accuracy = 0.7486631016042781
+
+Logistic Regression
+
+Class 0: tested 15, correctly classified 12
+Class 1: tested 172, correctly classified 133
+Overall: tested 187, correctly classified 145
+Accuracy = 0.7754010695187166
+
+c) For the heart data, logistic regression had the same performance as normal naive bayes.  The algorithm did not perform
+better than naive bayes because the tomography readings are probably pretty well independent of each other.  The training 
+set was also quite a bit smaller than the test set (less than half as large).  Logistic regression needs more training 
+data since it is trying to optimize the value of Y, rather than model the whole distribution, and did not perform 
+great because of this.  I would hypothesize that, given more data, logistic regression would outperform naive bayes.  Another approach is to tune the learning rate (see d) or increase the number of learning epochs to improve the performance.
+
+d) 
+
+Class 0: tested 15, correctly classified 7
+Class 1: tested 172, correctly classified 168
+Overall: tested 187, correctly classified 175
+Accuracy = 0.9358288770053476
+
+Using a learning rate of 0.000001 I was able to get an accuracy of 0.9358288770053476.  Lowering the learning rate
+greatly increased the accuracy of logistic regression.  This improved performance resulted from the accuracy with which
+the gradient descent algorithm was able to reach the global maximum of the log-conditional likelihood function.  By lowering
+the learning rate we take a smaller step toward the global maximum at each epoch and this results in a better fit.
+

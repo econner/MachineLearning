@@ -1,0 +1,41 @@
+simple-test.txt
+-----------------
+MLE:
+Class 0: tested 2, correctly classified 2
+Class 1: tested 2, correctly classified 2
+Overall: tested 4, correctly classified 4
+Accuracy = 1.0
+
+Laplace:
+Class 0: tested 2, correctly classified 2
+Class 1: tested 2, correctly classified 2
+Overall: tested 4, correctly classified 4
+Accuracy = 1.0
+
+vote-test.txt
+--------------
+MLE:
+Class 0: tested 52, correctly classified 48
+Class 1: tested 83, correctly classified 76
+Overall: tested 135, correctly classified 124
+Accuracy = 0.9185185185185185
+
+Laplace:
+Class 0: tested 52, correctly classified 48
+Class 1: tested 83, correctly classified 76
+Overall: tested 135, correctly classified 124
+Accuracy = 0.9185185185185185
+
+heart-test.txt
+--------------
+MLE:
+Class 0: tested 15, correctly classified 10
+Class 1: tested 172, correctly classified 135
+Overall: tested 187, correctly classified 145
+Accuracy = 0.7754010695187166
+
+Laplace:
+Class 0: tested 15, correctly classified 10
+Class 1: tested 172, correctly classified 130
+Overall: tested 187, correctly classified 140
+Accuracy = 0.7486631016042781

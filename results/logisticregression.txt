@@ -1,0 +1,20 @@
+simple-test.txt
+------------
+Class 0: tested 2, correctly classified 2
+Class 1: tested 2, correctly classified 2
+Overall: tested 4, correctly classified 4
+Accuracy = 1.0
+
+vote-test.txt
+------------
+Class 0: tested 52, correctly classified 51
+Class 1: tested 83, correctly classified 83
+Overall: tested 135, correctly classified 134
+Accuracy = 0.9925925925925926
+
+heart-test.txt
+------------
+Class 0: tested 15, correctly classified 12
+Class 1: tested 172, correctly classified 133
+Overall: tested 187, correctly classified 145
+Accuracy = 0.7754010695187166
