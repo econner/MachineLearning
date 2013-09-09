@@ -11,7 +11,7 @@ public class LogisticRegression {
 	private int numTrainingExamples = 0;
 	private int numFeatures = 0;
 	private int[][] featureMatrix;
-	private int[] yVector;
+	private int[] LabelVector;
 	
 	// the learned weights
 	private double[] weights;
@@ -30,13 +30,13 @@ public class LogisticRegression {
 		for(int i = 0; i < featureMatrix.length; i++)
 		{
 			int classification = getClassification(featureMatrix[i]);
-			if(yVector[i] == 0) {
+			if(LabelVector[i] == 0) {
 				numNeg++;
-				if(classification == yVector[i])
+				if(classification == LabelVector[i])
 					numCorrectNeg++;
 			} else {
 				numPos++;
-				if(classification == yVector[i])
+				if(classification == LabelVector[i])
 					numCorrectPos++;
 			}
 		}
@@ -77,27 +77,41 @@ public class LogisticRegression {
 	 */
 	public void trainLogisticRegression()
 	{
-		// Initialize: weights = 0 for all 0 ² j² m
+		// Initialize: weights = 0 for all 0 ï¿½jï¿½m
 		// add 1 for bias term
 		weights = new double[numFeatures+1];
-		for(int i = 0; i < weights.length; i++) weights[i] = 0;
+		
+		//weights initialization
+		for(int i = 0; i < weights.length; i++) 
+			weights[i] = 0;
 		
 		for(int i = 0; i < NUM_EPOCHS; i++)
 		{
 			// add 1 for bias term
-			double[] gradient = new double[numFeatures+1];
-			for(int g = 0; g < gradient.length; g++) gradient[g] = 0;
+			double[] gradient = new double[numFeatures + 1];
+			
+			//gradients initialization
+			for(int g = 0; g < gradient.length; g++) 
+				gradient[g] = 0;
+			
+			/*for(int row = 0; row < featureMatrix.length; row++)
+			{
+				for(int col = 0; col < featureMatrix[0].length; col++)
+				{
+					gradient[col] += (double)featureMatrix[row][col] * ((double)LabelVector[row] - sigmoid(featureMatrix[row]));
+				}
+			}
+			
+			for(int j = 0; j < weights.length; j++)
+				weights[j] += LEARNING_RATE * gradient[j];*/
 			
 			for(int row = 0; row < featureMatrix.length; row++)
 			{
 				for(int col = 0; col < featureMatrix[0].length; col++)
 				{
-					gradient[col] += (double)featureMatrix[row][col]*((double)yVector[row] - sigmoid(featureMatrix[row]));
+					weights[col] += LEARNING_RATE * ((double)featureMatrix[row][col] * ((double)LabelVector[row] - sigmoid(featureMatrix[row])));
 				}
 			}
-			
-			for(int j = 0; j < weights.length; j++)
-				weights[j] += LEARNING_RATE * gradient[j];
 		}
 	}
 	
@@ -126,7 +140,7 @@ public class LogisticRegression {
 		
 		// add 1 for bias term
 		featureMatrix = new int[numTrainingExamples][numFeatures+1];
-		yVector = new int[numTrainingExamples];
+		LabelVector = new int[numTrainingExamples];
 		
 	}
 	
@@ -156,7 +170,7 @@ public class LogisticRegression {
 					}
 					featureMatrix[i][j+1] = Integer.parseInt(lineVector[j]);
 				}
-				yVector[i] = Integer.parseInt(lineVector[lineVector.length-1]);
+				LabelVector[i] = Integer.parseInt(lineVector[lineVector.length-1]);
 
 				i++;
 			}
