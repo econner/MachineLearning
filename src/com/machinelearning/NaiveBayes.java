@@ -11,7 +11,7 @@ public class NaiveBayes
 	private int numTrainingExamples = 0;
 	private int numFeatures = 0;
 	private int[][] featureMatrix;
-	private int[] yVector;
+	private int[] LabelVector;
 	
 	private int posCount = 0;
 	private int negCount = 0;
@@ -26,6 +26,7 @@ public class NaiveBayes
 	{
 		double posDenom = posCount;
 		double negDenom = negCount;
+		
 		if(useLaplace) {
 			posDenom += featureCountsPos.length;
 			negDenom += featureCountsNeg.length;
@@ -73,13 +74,13 @@ public class NaiveBayes
 		for(int i = 0; i < featureMatrix.length; i++)
 		{
 			int classification = getClassification(featureMatrix[i]);
-			if(yVector[i] == 0) {
+			if(LabelVector[i] == 0) {
 				numNeg++;
-				if(classification == yVector[i])
+				if(classification == LabelVector[i])
 					numCorrectNeg++;
 			} else {
 				numPos++;
-				if(classification == yVector[i])
+				if(classification == LabelVector[i])
 					numCorrectPos++;
 			}
 		}
@@ -105,12 +106,15 @@ public class NaiveBayes
 		
 		for(int i = 0; i < featureMatrix.length; i++)
 		{
-			if(yVector[i] == 1) posCount++;
-			else negCount++;
+			//Calculate the num of positive instance or negative instance
+			if(LabelVector[i] == 1) 
+				posCount++;
+			else 
+				negCount++;
 			
 			for(int j = 0; j < featureMatrix[0].length; j++)
 			{
-				if(yVector[i] == 1)
+				if(LabelVector[i] == 1)
 					featureCountsPos[j] += featureMatrix[i][j];
 				else
 					featureCountsNeg[j] += featureMatrix[i][j];
@@ -132,8 +136,7 @@ public class NaiveBayes
 		numTrainingExamples = Integer.parseInt(input.readLine());
 		
 		featureMatrix = new int[numTrainingExamples][numFeatures];
-		yVector = new int[numTrainingExamples];
-		
+		LabelVector = new int[numTrainingExamples];
 	}
 	
 	/*
@@ -160,8 +163,8 @@ public class NaiveBayes
 					}
 					featureMatrix[i][j] = Integer.parseInt(lineVector[j]);
 				}
-				yVector[i] = Integer.parseInt(lineVector[lineVector.length-1]);
-
+				//The last position of line is "Label"
+				LabelVector[i] = Integer.parseInt(lineVector[lineVector.length-1]);
 				i++;
 			}
 			input.close();
