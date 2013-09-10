@@ -8,6 +8,9 @@ public class MachineLearning {
 
 	public void doNaiveBayes() {
 
+		String dataDir = "datasets/";
+		String trainFile = "heart-train.txt";
+		String testFile = "heart-test.txt";
 		// PARAMETER
 		// use laplace or not?
 		boolean useLaplace = true;
@@ -31,7 +34,7 @@ public class MachineLearning {
 
 	public static void main(String[] args) {
 		MachineLearning ml = new MachineLearning();
-		// ml.doNaiveBayes();
-		ml.doLogisticRegression();
+		ml.doNaiveBayes();
+		//ml.doLogisticRegression();
 	}
 }

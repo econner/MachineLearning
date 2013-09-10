@@ -31,8 +31,8 @@ public class NaiveBayes
 			posDenom += featureCountsPos.length;
 			negDenom += featureCountsNeg.length;
 		}
-		double logProbPos = Math.log((double)posCount / (posCount + negCount));
-		double logProbNeg = Math.log((double)negCount / (posCount + negCount));
+		double logProbPos = Math.log((double) posCount / (posCount + negCount));
+		double logProbNeg = Math.log((double) negCount / (posCount + negCount));
 
 		double posClass = 0;
 		double negClass = 0;
@@ -53,8 +53,8 @@ public class NaiveBayes
 				negClass += 1;
 			}
 			
-			logProbPos += Math.log(posClass / posDenom);
-			logProbNeg += Math.log(negClass / negDenom);
+			logProbPos += Math.log( posClass / posDenom );
+			logProbNeg += Math.log( negClass / negDenom );
 		}
 		
 		if(logProbPos > logProbNeg)
@@ -127,6 +127,7 @@ public class NaiveBayes
 	 *    <number of features>
 	 *    <number of training examples>
 	 *    < ... data ... >
+	 *    <feature data> : <label>
 	 * This method reads those constants and sets up the appropriate instance variables.
 	 */
 	private void readFileConstants(BufferedReader input) throws NumberFormatException, IOException
