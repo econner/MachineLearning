@@ -11,7 +11,7 @@ public class NaiveBayes
 	private int numTrainingExamples = 0;
 	private int numFeatures = 0;
 	private int[][] featureMatrix;
-	private int[] yVector;
+	private int[] LabelVector;
 	
 	private int posCount = 0;
 	private int negCount = 0;
@@ -26,12 +26,13 @@ public class NaiveBayes
 	{
 		double posDenom = posCount;
 		double negDenom = negCount;
+		
 		if(useLaplace) {
 			posDenom += featureCountsPos.length;
 			negDenom += featureCountsNeg.length;
 		}
-		double logProbPos = Math.log((double)posCount / (posCount + negCount));
-		double logProbNeg = Math.log((double)negCount / (posCount + negCount));
+		double logProbPos = Math.log((double) posCount / (posCount + negCount));
+		double logProbNeg = Math.log((double) negCount / (posCount + negCount));
 
 		double posClass = 0;
 		double negClass = 0;
@@ -52,8 +53,8 @@ public class NaiveBayes
 				negClass += 1;
 			}
 			
-			logProbPos += Math.log(posClass / posDenom);
-			logProbNeg += Math.log(negClass / negDenom);
+			logProbPos += Math.log( posClass / posDenom );
+			logProbNeg += Math.log( negClass / negDenom );
 		}
 		
 		if(logProbPos > logProbNeg)
@@ -73,13 +74,13 @@ public class NaiveBayes
 		for(int i = 0; i < featureMatrix.length; i++)
 		{
 			int classification = getClassification(featureMatrix[i]);
-			if(yVector[i] == 0) {
+			if(LabelVector[i] == 0) {
 				numNeg++;
-				if(classification == yVector[i])
+				if(classification == LabelVector[i])
 					numCorrectNeg++;
 			} else {
 				numPos++;
-				if(classification == yVector[i])
+				if(classification == LabelVector[i])
 					numCorrectPos++;
 			}
 		}
@@ -105,12 +106,15 @@ public class NaiveBayes
 		
 		for(int i = 0; i < featureMatrix.length; i++)
 		{
-			if(yVector[i] == 1) posCount++;
-			else negCount++;
+			//Calculate the num of positive instance or negative instance
+			if(LabelVector[i] == 1) 
+				posCount++;
+			else 
+				negCount++;
 			
 			for(int j = 0; j < featureMatrix[0].length; j++)
 			{
-				if(yVector[i] == 1)
+				if(LabelVector[i] == 1)
 					featureCountsPos[j] += featureMatrix[i][j];
 				else
 					featureCountsNeg[j] += featureMatrix[i][j];
@@ -123,6 +127,7 @@ public class NaiveBayes
 	 *    <number of features>
 	 *    <number of training examples>
 	 *    < ... data ... >
+	 *    <feature data> : <label>
 	 * This method reads those constants and sets up the appropriate instance variables.
 	 */
 	private void readFileConstants(BufferedReader input) throws NumberFormatException, IOException
@@ -132,8 +137,7 @@ public class NaiveBayes
 		numTrainingExamples = Integer.parseInt(input.readLine());
 		
 		featureMatrix = new int[numTrainingExamples][numFeatures];
-		yVector = new int[numTrainingExamples];
-		
+		LabelVector = new int[numTrainingExamples];
 	}
 	
 	/*
@@ -160,8 +164,8 @@ public class NaiveBayes
 					}
 					featureMatrix[i][j] = Integer.parseInt(lineVector[j]);
 				}
-				yVector[i] = Integer.parseInt(lineVector[lineVector.length-1]);
-
+				//The last position of line is "Label"
+				LabelVector[i] = Integer.parseInt(lineVector[lineVector.length-1]);
 				i++;
 			}
 			input.close();
